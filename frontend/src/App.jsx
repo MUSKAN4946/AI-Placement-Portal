@@ -1,17 +1,18 @@
+import { Routes, Route } from "react-router-dom";
+
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Register />} />
 
-    return (
+      <Route path="/register" element={<Register />} />
 
-        <div>
-
-            <Register />
-
-        </div>
-
-    );
-
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  );
 }
 
 export default App;
