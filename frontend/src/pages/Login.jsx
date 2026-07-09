@@ -21,6 +21,11 @@ function Login() {
                 }
             );
 
+            localStorage.setItem(
+                "token",
+                response.data.access_token
+            );
+
             alert(response.data.message);
 
             navigate("/dashboard");
@@ -37,29 +42,40 @@ function Login() {
 
     return (
 
-        <div>
+        <div className="min-h-screen bg-gray-100 flex justify-center items-center">
 
-            <h1>Login</h1>
+            <div className="bg-white shadow-lg rounded-xl p-8 w-96">
 
-            <input
-                type="email"
-                placeholder="Enter Email"
-                onChange={(e) => setEmail(e.target.value)}
-            />
+                <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
+                    AI Placement Portal
+                </h1>
 
-            <br /><br />
+                <h2 className="text-xl font-semibold text-center mb-6">
+                    Login
+                </h2>
 
-            <input
-                type="password"
-                placeholder="Enter Password"
-                onChange={(e) => setPassword(e.target.value)}
-            />
+                <input
+                    type="email"
+                    placeholder="Enter Email"
+                    className="w-full border rounded-lg p-3 mb-4"
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
-            <br /><br />
+                <input
+                    type="password"
+                    placeholder="Enter Password"
+                    className="w-full border rounded-lg p-3 mb-6"
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
-            <button onClick={loginUser}>
-                Login
-            </button>
+                <button
+                    onClick={loginUser}
+                    className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
+                >
+                    Login
+                </button>
+
+            </div>
 
         </div>
 
