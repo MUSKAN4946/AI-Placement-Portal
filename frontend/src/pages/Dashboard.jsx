@@ -26,7 +26,7 @@ function Dashboard() {
 
                 <button
                     onClick={logout}
-                    className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600"
+                    className="bg-red-500 px-4 py-2 rounded-lg"
                 >
                     Logout
                 </button>
@@ -35,43 +35,16 @@ function Dashboard() {
 
             <div className="max-w-5xl mx-auto p-8">
 
-                <h2 className="text-3xl font-bold mb-6">
+                <h2 className="text-3xl font-bold mb-8">
                     Welcome 👋
                 </h2>
 
-                <div className="grid grid-cols-3 gap-6">
-
-                    <div className="bg-white shadow-lg rounded-xl p-6">
-                        <h3 className="text-lg font-semibold">
-                            Resume Score
-                        </h3>
-
-                        <p className="text-4xl text-blue-600 font-bold mt-3">
-                            85%
-                        </p>
-                    </div>
-
-                    <div className="bg-white shadow-lg rounded-xl p-6">
-                        <h3 className="text-lg font-semibold">
-                            Applied Jobs
-                        </h3>
-
-                        <p className="text-4xl text-green-600 font-bold mt-3">
-                            12
-                        </p>
-                    </div>
-
-                    <div className="bg-white shadow-lg rounded-xl p-6">
-                        <h3 className="text-lg font-semibold">
-                            Interviews
-                        </h3>
-
-                        <p className="text-4xl text-purple-600 font-bold mt-3">
-                            3
-                        </p>
-                    </div>
-
-                </div>
+                <button
+                    onClick={() => navigate("/resume-upload")}
+                    className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 mb-8"
+                >
+                    Resume Upload
+                </button>
 
             </div>
 

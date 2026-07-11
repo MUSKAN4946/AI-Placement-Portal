@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import ResumeUpload from "./pages/ResumeUpload";
 
 function ProtectedRoute({ children }) {
 
@@ -18,26 +19,26 @@ function App() {
 
         <Routes>
 
-            <Route
-                path="/"
-                element={<Register />}
-            />
+            <Route path="/" element={<Register />} />
 
-            <Route
-                path="/register"
-                element={<Register />}
-            />
+            <Route path="/register" element={<Register />} />
 
-            <Route
-                path="/login"
-                element={<Login />}
-            />
+            <Route path="/login" element={<Login />} />
 
             <Route
                 path="/dashboard"
                 element={
                     <ProtectedRoute>
                         <Dashboard />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/resume-upload"
+                element={
+                    <ProtectedRoute>
+                        <ResumeUpload />
                     </ProtectedRoute>
                 }
             />
