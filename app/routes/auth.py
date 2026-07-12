@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.schemas.user_schema import (
@@ -60,23 +60,23 @@ def login(
         )
         .first()
     )
-
+    
     if not existing_user:
 
-        return {
-            "message":
-            "User Not Found"
-        }
+        raise HTTPException(
+        status_code=404,
+        detail="User Not Found"
+    )
 
     if not verify_password(
-        user.password,
-        existing_user.password
-    ):
+    user.password,
+    existing_user.password
+):
 
-        return {
-            "message":
-            "Invalid Password"
-        }
+        raise HTTPException(
+        status_code=401,
+        detail="Invalid Password"
+    )
 
     token = create_access_token(
         {

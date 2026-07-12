@@ -16,3 +16,20 @@ async def upload_resume(file: UploadFile = File(...)):
         "message": "Resume Uploaded Successfully",
         "filename": file.filename
     }
+
+@router.get("/analyze-resume")
+async def analyze_resume():
+
+    return {
+        "score": 85,
+        "skills": [
+            "Python",
+            "FastAPI",
+            "React"
+        ],
+        "missing_skills": [
+            "Docker",
+            "AWS",
+            "Machine Learning"
+        ]
+    }
