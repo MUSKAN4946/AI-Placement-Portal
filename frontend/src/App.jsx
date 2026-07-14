@@ -1,17 +1,10 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ResumeUpload from "./pages/ResumeUpload";
-
-function ProtectedRoute({ children }) {
-
-    const token = localStorage.getItem("token");
-
-    return token ? children : <Navigate to="/login" />;
-
-}
+import JobRecommendation from "./pages/JobRecommendation";
 
 function App() {
 
@@ -19,28 +12,34 @@ function App() {
 
         <Routes>
 
-            <Route path="/" element={<Register />} />
+            <Route
+                path="/"
+                element={<Login />}
+            />
 
-            <Route path="/register" element={<Register />} />
+            <Route
+                path="/login"
+                element={<Login />}
+            />
 
-            <Route path="/login" element={<Login />} />
+            <Route
+                path="/register"
+                element={<Register />}
+            />
 
             <Route
                 path="/dashboard"
-                element={
-                    <ProtectedRoute>
-                        <Dashboard />
-                    </ProtectedRoute>
-                }
+                element={<Dashboard />}
             />
 
             <Route
                 path="/resume-upload"
-                element={
-                    <ProtectedRoute>
-                        <ResumeUpload />
-                    </ProtectedRoute>
-                }
+                element={<ResumeUpload />}
+            />
+
+            <Route
+                path="/job-recommendation"
+                element={<JobRecommendation />}
             />
 
         </Routes>

@@ -1,19 +1,8 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 function Dashboard() {
 
     const navigate = useNavigate();
-    useEffect(() => {
-
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-
-        navigate("/login");
-
-    }
-
-}, [navigate]);
 
     const logout = () => {
 
@@ -37,7 +26,7 @@ function Dashboard() {
 
                 <button
                     onClick={logout}
-                    className="bg-red-500 px-4 py-2 rounded-lg"
+                    className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600"
                 >
                     Logout
                 </button>
@@ -52,9 +41,16 @@ function Dashboard() {
 
                 <button
                     onClick={() => navigate("/resume-upload")}
-                    className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 mb-8"
+                    className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 mb-4 mr-4"
                 >
                     Resume Upload
+                </button>
+
+                <button
+                    onClick={() => navigate("/job-recommendation")}
+                    className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700"
+                >
+                    Job Recommendation
                 </button>
 
             </div>
