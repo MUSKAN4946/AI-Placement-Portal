@@ -4,6 +4,8 @@ import axios from "axios";
 function JobRecommendation() {
 
     const [jobs, setJobs] = useState([]);
+    const [search, setSearch] = useState("");
+    const [jobType, setJobType] = useState("All");
 
     useEffect(() => {
 
@@ -31,9 +33,9 @@ function JobRecommendation() {
 
     };
 
-    const applyJob = (company) => {
+    const applyJob = (link) => {
 
-        alert(`Application Submitted Successfully for ${company}! 🎉`);
+        window.open(link, "_blank");
 
     };
 
@@ -45,38 +47,128 @@ function JobRecommendation() {
                 Recommended Jobs
             </h1>
 
+            <div className="mb-8">
+
+                <input
+                    type="text"
+                    placeholder="Search Job, Company..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="w-full p-3 border rounded-lg"
+                />
+
+            </div>
+
+            <div className="mb-8">
+
+                <select
+                    value={jobType}
+                    onChange={(e) => setJobType(e.target.value)}
+                    className="w-full p-3 border rounded-lg"
+                >
+
+                    <option>All</option>
+                    <option>Full Time</option>
+                    <option>Internship</option>
+
+                </select>
+
+            </div>
+
             <div className="grid md:grid-cols-2 gap-6">
 
                 {
-                    jobs.map((job, index) => (
 
-                        <div
-                            key={index}
-                            className="bg-white shadow-lg rounded-xl p-6"
-                        >
+                    jobs
 
-                            <h2 className="text-2xl font-bold">
-                                {job.title}
-                            </h2>
+                        .filter((job) => {
 
-                            <p className="mt-3">
-                                <strong>Company :</strong> {job.company}
-                            </p>
+                            const matchesSearch =
 
-                            <p>
-                                <strong>Location :</strong> {job.location}
-                            </p>
+                                job.title.toLowerCase().includes(search.toLowerCase()) ||
 
-                            <button
-                                onClick={() => applyJob(job.company)}
-                                className="mt-5 bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700"
+                                job.company.toLowerCase().includes(search.toLowerCase());
+
+                            const matchesType =
+
+                                jobType === "All" ||
+
+                                job.job_type === jobType;
+
+                            return matchesSearch && matchesType;
+
+                        })
+
+                        .map((job, index) => (
+
+                            <div
+                                key={index}
+                                className="bg-white shadow-lg rounded-xl p-6"
                             >
-                                Apply
-                            </button>
+                                
+                                <img
+                                    src={`/images/${job.company.toLowerCase()}.png`}
+                                    alt={job.company}
+                                    className="w-20 h-20 object-contain mb-4"
+                                />
 
-                        </div>
+                                <h2 className="text-2xl font-bold">
+                                    {job.title}
+                                </h2>
 
-                    ))
+                                <p className="mt-3">
+                                    <strong>Company :</strong> {job.company}
+                                </p>
+
+                                <p>
+                                    <strong>Location :</strong> {job.location}
+                                </p>
+
+                                <p>
+                                    <strong>Salary :</strong> {job.salary}
+                                </p>
+
+                                <p>
+                                    <strong>Experience :</strong> {job.experience}
+                                </p>
+
+                                <p>
+                                    <strong>Job Type :</strong> {job.job_type}
+                                </p>
+
+                                <div className="mt-3">
+
+                                    <strong>Required Skills :</strong>
+
+                                    <ul className="list-disc ml-6 mt-2">
+
+                                        {
+
+                                            job.skills.map((skill, i) => (
+
+                                                <li key={i}>
+                                                    {skill}
+                                                </li>
+
+                                            ))
+
+                                        }
+
+                                    </ul>
+
+                                </div>
+
+                                <button
+                                    onClick={() => applyJob(job.apply_link)}
+                                    className="mt-5 bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700"
+                                >
+                                    Apply
+                                </button>
+
+                            </div>
+
+                        ))
+
                 }
 
             </div>
