@@ -105,7 +105,25 @@ function JobRecommendation() {
                                 key={index}
                                 className="bg-white shadow-lg rounded-xl p-6"
                             >
-                                
+
+                                {
+
+                                    index === 0 && (
+
+                                        <div className="mb-3">
+
+                                            <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+
+                                                🏆 BEST MATCH
+
+                                            </span>
+
+                                        </div>
+
+                                    )
+
+                                }
+
                                 <img
                                     src={`/images/${job.company.toLowerCase()}.png`}
                                     alt={job.company}
@@ -113,56 +131,81 @@ function JobRecommendation() {
                                 />
 
                                 <h2 className="text-2xl font-bold">
+
                                     {job.title}
+
                                 </h2>
 
                                 <p className="mt-3">
+
                                     <strong>Company :</strong> {job.company}
+
                                 </p>
 
                                 <p>
+
                                     <strong>Location :</strong> {job.location}
+
                                 </p>
 
                                 <p>
+
                                     <strong>Salary :</strong> {job.salary}
+
                                 </p>
 
                                 <p>
+
                                     <strong>Experience :</strong> {job.experience}
+
                                 </p>
 
                                 <p>
+
                                     <strong>Job Type :</strong> {job.job_type}
+
                                 </p>
 
-                                <div className="mt-3">
+                                <p
+                                    className={`mt-3 font-bold ${
+                                        job.match_percentage >= 80
+                                            ? "text-green-600"
+                                            : job.match_percentage >= 60
+                                            ? "text-yellow-600"
+                                            : "text-red-600"
+                                    }`}
+                                >
 
-                                    <strong>Required Skills :</strong>
+                                    🎯 Match : {job.match_percentage}%
 
-                                    <ul className="list-disc ml-6 mt-2">
+                                </p>
 
-                                        {
+                                <div className="w-full bg-gray-300 rounded-full h-4 mt-3">
 
-                                            job.skills.map((skill, i) => (
+                                    <div
+                                        className={`h-4 rounded-full ${
+                                            job.match_percentage >= 80
+                                                ? "bg-green-500"
+                                                : job.match_percentage >= 60
+                                                ? "bg-yellow-500"
+                                                : "bg-red-500"
+                                        }`}
+                                        style={{
+                                            width: `${job.match_percentage}%`
+                                        }}
+                                    >
 
-                                                <li key={i}>
-                                                    {skill}
-                                                </li>
-
-                                            ))
-
-                                        }
-
-                                    </ul>
+                                    </div>
 
                                 </div>
 
                                 <button
                                     onClick={() => applyJob(job.apply_link)}
-                                    className="mt-5 bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700"
+                                    className="mt-6 bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700"
                                 >
+
                                     Apply
+
                                 </button>
 
                             </div>

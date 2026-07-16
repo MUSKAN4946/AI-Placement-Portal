@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+import app.routes.resume as resume
 
 router = APIRouter()
 
@@ -18,7 +19,12 @@ def recommended_jobs():
             "skills": [
                 "Python",
                 "FastAPI",
-                "MySQL"
+                "MySQL",
+                "Git",
+                "GitHub",
+                "Docker",
+                "REST API",
+                "Linux"
             ],
             "apply_link": "https://www.tcs.com/careers",
         },
@@ -32,8 +38,13 @@ def recommended_jobs():
             "job_type": "Full Time",
             "skills": [
                 "Python",
+                "MongoDB",
                 "Git",
-                "MongoDB"
+                "Docker",
+                "SQL",
+                "REST API",
+                "FastAPI",
+                "AWS"
             ],
             "apply_link": "https://career.infosys.com",
         },
@@ -46,9 +57,14 @@ def recommended_jobs():
             "experience": "Fresher",
             "job_type": "Full Time",
             "skills": [
-                "C++",
                 "Python",
-                "GitHub"
+                "C++",
+                "GitHub",
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "React",
+                "Operating Systems"
             ],
             "apply_link": "https://www.accenture.com/in-en/careers",
         },
@@ -63,11 +79,45 @@ def recommended_jobs():
             "skills": [
                 "Python",
                 "Machine Learning",
-                "Git"
+                "Git",
+                "Pandas",
+                "NumPy",
+                "Scikit-Learn",
+                "SQL",
+                "Statistics"
             ],
             "apply_link": "https://www.ibm.com/careers",
         }
 
     ]
+
+    for job in jobs:
+
+        matched_skills = []
+        missing_skills = []
+
+        for skill in job["skills"]:
+
+            if skill in resume.resume_skills:
+
+                matched_skills.append(skill)
+
+            else:
+
+                missing_skills.append(skill)
+
+        ats_score = int(
+            (len(matched_skills) / len(job["skills"])) * 100
+        )
+
+        job["matched_skills"] = matched_skills
+        job["missing_skills"] = missing_skills
+        job["match_percentage"] = ats_score
+        job["ats_score"] = ats_score
+
+    jobs.sort(
+        key=lambda x: x["match_percentage"],
+        reverse=True
+    )
 
     return jobs

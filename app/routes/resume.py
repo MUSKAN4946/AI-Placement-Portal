@@ -5,6 +5,8 @@ import os
 
 router = APIRouter()
 
+resume_skills = []
+
 
 @router.post("/upload-resume")
 async def upload_resume(file: UploadFile = File(...)):
@@ -51,36 +53,79 @@ def analyze_resume():
 
     document.close()
 
-    print("\n========== RESUME TEXT ==========\n")
-    print(resume_text)
-
     skills_database = [
+
+        # Programming
         "Python",
         "C++",
+        "Java",
+        "C",
+        "JavaScript",
+
+        # Web
         "HTML",
         "CSS",
-        "JavaScript",
         "React",
+        "Node.js",
         "FastAPI",
+        "Flask",
+        "Django",
+        "REST API",
+
+        # Database
+        "MySQL",
+        "SQL",
+        "MongoDB",
+        "SQLAlchemy",
+
+        # AI / ML
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Deep Learning",
+        "Pandas",
+        "NumPy",
+        "Scikit-Learn",
+        "TensorFlow",
+
+        # Tools
         "Git",
         "GitHub",
         "VS Code",
-        "MySQL",
-        "MongoDB",
         "Docker",
         "AWS",
-        "Machine Learning",
+        "Linux",
+
+        # Subjects
         "Operating Systems",
-        "Computer Network"
+        "Computer Network",
+        "DBMS",
+        "OOP",
+        "Data Structures",
+        "Algorithms",
+
+        # Other
+        "Tkinter",
+        "PostgreSQL",
+        "Power BI",
+        "Excel",
+        "IoT",
+        "Cloud Computing"
+
     ]
+
+    global resume_skills
 
     found_skills = []
 
+    resume_lower = resume_text.lower()
+
     for skill in skills_database:
 
-        if skill.lower() in resume_text.lower():
+        if skill.lower() in resume_lower:
 
             found_skills.append(skill)
+
+    resume_skills = found_skills
 
     missing_skills = []
 
@@ -90,7 +135,9 @@ def analyze_resume():
 
             missing_skills.append(skill)
 
-    score = int((len(found_skills) / len(skills_database)) * 100)
+    score = int(
+        (len(found_skills) / len(skills_database)) * 100
+    )
 
     return {
 
