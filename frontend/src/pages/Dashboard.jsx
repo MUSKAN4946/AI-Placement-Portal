@@ -60,6 +60,13 @@ function Dashboard() {
                      Saved Jobs
                 </button>
 
+                <button
+                    onClick={() => navigate("/profile")}
+                    className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 ml-4 mt-4"
+                >
+                     My Profile
+                </button>
+
 
             </div>
 
