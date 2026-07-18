@@ -6,12 +6,32 @@ function JobRecommendation() {
     const [jobs, setJobs] = useState([]);
     const [search, setSearch] = useState("");
     const [jobType, setJobType] = useState("All");
+    const [savedJobs, setSavedJobs] = useState(() => {
+
+        const saved = localStorage.getItem("savedJobs");
+
+        return saved ? JSON.parse(saved) : [];
+
+    });
 
     useEffect(() => {
 
         getJobs();
 
     }, []);
+
+    useEffect(() => {
+
+        localStorage.setItem(
+
+            "savedJobs",
+
+                JSON.stringify(savedJobs)
+
+        );
+
+    }, [savedJobs]);
+
 
     const getJobs = async () => {
 
@@ -38,6 +58,29 @@ function JobRecommendation() {
         window.open(link, "_blank");
 
     };
+
+    const saveJob = (job) => {
+
+    const alreadySaved = savedJobs.find(
+
+        (saved) => saved.company === job.company
+
+    );
+
+    if (alreadySaved) {
+
+        alert("❤️ Job already saved!");
+
+        return;
+
+    }
+
+    setSavedJobs([...savedJobs, job]);
+
+    alert("✅ Job Saved Successfully!");
+
+};
+
 
     return (
 
@@ -198,6 +241,15 @@ function JobRecommendation() {
                                     </div>
 
                                 </div>
+                                
+
+                                <button
+                                    onClick={() => saveJob(job)}
+                                    className="mt-4 mr-3 bg-pink-600 text-white px-5 py-2 rounded-lg hover:bg-pink-700"
+                                >
+                                    ❤️ Save Job
+                                </button>
+
 
                                 <button
                                     onClick={() => applyJob(job.apply_link)}

@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ResumeUpload from "./pages/ResumeUpload";
 import JobRecommendation from "./pages/JobRecommendation";
+import SavedJobs from "./pages/SavedJobs";
 
 function App() {
 
@@ -41,6 +42,8 @@ function App() {
                 path="/job-recommendation"
                 element={<JobRecommendation />}
             />
+
+            <Route path="/saved-jobs" element={<SavedJobs />} />
 
         </Routes>
 

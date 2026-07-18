@@ -53,6 +53,14 @@ function Dashboard() {
                     Job Recommendation
                 </button>
 
+                <button
+                    onClick={() => navigate("/saved-jobs")}
+                    className="bg-pink-600 text-white px-6 py-3 rounded-lg hover:bg-pink-700 ml-4"
+                >
+                     Saved Jobs
+                </button>
+
+
             </div>
 
         </div>
