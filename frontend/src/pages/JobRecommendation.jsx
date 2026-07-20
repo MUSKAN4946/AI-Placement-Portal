@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function JobRecommendation() {
 
+    const navigate = useNavigate();
     const [jobs, setJobs] = useState([]);
     const [search, setSearch] = useState("");
     const [jobType, setJobType] = useState("All");
@@ -241,24 +243,56 @@ function JobRecommendation() {
                                     </div>
 
                                 </div>
+
+
+
+
+
+
+                                <div className="flex gap-3 mt-5 flex-wrap">
+
+    <button
+        onClick={() => saveJob(job)}
+        className="bg-pink-600 text-white px-5 py-2 rounded-lg hover:bg-pink-700"
+    >
+        ❤️ Save Job
+    </button>
+
+    <button
+        onClick={() => navigate("/interview-questions")}
+        className="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700"
+    >
+        🎤 Interview Prep
+        
+    </button>
+
+    <button
+        onClick={() => applyJob(job.apply_link)}
+        className="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700"
+    >
+        Apply
+    </button>
+
+</div>
                                 
 
-                                <button
-                                    onClick={() => saveJob(job)}
-                                    className="mt-4 mr-3 bg-pink-600 text-white px-5 py-2 rounded-lg hover:bg-pink-700"
-                                >
-                                    ❤️ Save Job
-                                </button>
+                               
 
 
-                                <button
-                                    onClick={() => applyJob(job.apply_link)}
-                                    className="mt-6 bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700"
-                                >
 
-                                    Apply
 
-                                </button>
+
+
+
+
+
+
+
+
+
+
+
+
 
                             </div>
 
