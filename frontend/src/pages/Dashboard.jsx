@@ -134,6 +134,13 @@ function Dashboard() {
                      My Profile
                 </button>
 
+                <button
+                    onClick={() => navigate("/mock-interview")}
+                    className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 ml-4 mt-4"
+                >
+                    Mock Interview
+                </button>
+
 
 
 

@@ -8,6 +8,7 @@ import JobRecommendation from "./pages/JobRecommendation";
 import SavedJobs from "./pages/SavedJobs";
 import Profile from "./pages/Profile";
 import InterviewQuestions from "./pages/InterviewQuestions";
+import MockInterview from "./pages/MockInterview";
 
 function App() {
 
@@ -52,6 +53,11 @@ function App() {
             <Route
                 path="/interview-questions"
                 element={<InterviewQuestions />}
+            />
+
+            <Route
+                path="/mock-interview"
+                element={<MockInterview />}
             />
 
             
