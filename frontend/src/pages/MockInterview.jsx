@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 function MockInterview() {
 
     const questions = [
@@ -19,28 +18,61 @@ function MockInterview() {
     const [started, setStarted] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [completed, setCompleted] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(60);
+    const [score, setScore] = useState(0);
 
-    const startInterview = () => {
+    useEffect(() => {
 
-        setStarted(true);
-        setCompleted(false);
-        setCurrentQuestion(0);
+    if (!started || completed) return;
 
-    };
+    if (timeLeft === 0) {
+
+        setCompleted(true);
+
+        return;
+
+    }
+
+    const timer = setTimeout(() => {
+
+        setTimeLeft(timeLeft - 1);
+
+    }, 1000);
+
+    return () => clearTimeout(timer);
+
+}, [timeLeft, started, completed]);
+
+ const startInterview = () => {
+
+    setStarted(true);
+
+    setCompleted(false);
+
+    setCurrentQuestion(0);
+
+    setTimeLeft(60);
+
+    setScore(0);
+
+};
 
     const nextQuestion = () => {
 
-        if (currentQuestion < questions.length - 1) {
+       if (currentQuestion < questions.length - 1) {
 
-            setCurrentQuestion(currentQuestion + 1);
+    setScore(score + 1);
 
-        }
+    setCurrentQuestion(currentQuestion + 1);
 
-        else {
+}
+else {
 
-            setCompleted(true);
+    setScore(score + 1);
 
-        }
+    setCompleted(true);
+
+}
 
     };
 
@@ -49,6 +81,8 @@ function MockInterview() {
         setStarted(false);
         setCompleted(false);
         setCurrentQuestion(0);
+        setTimeLeft(60);
+        setScore(0);
 
     };
 
@@ -96,6 +130,12 @@ function MockInterview() {
 
                             </h2>
 
+                            <p className="text-red-600 font-bold text-lg mb-4">
+
+                                ⏱️ Time Left : {timeLeft} sec
+
+                            </p>
+
                             <p className="text-sm text-gray-500 mb-4">
     Progress: {currentQuestion + 1} of {questions.length}
 </p>
@@ -135,11 +175,43 @@ function MockInterview() {
 
                             </h2>
 
-                            <p className="mt-4 text-lg text-gray-700">
+                            <h3 className="text-2xl font-bold text-blue-700 mt-6">
 
-                                Great Job! You have completed all interview questions.
+                                ⭐ Your Score : {score} / {questions.length}
 
-                            </p>
+                            </h3>
+
+
+                            <p className="text-xl font-semibold mt-4">
+
+    {
+
+        score === questions.length
+
+            ? "🏆 Performance : Excellent"
+
+            : score >= 3
+
+            ? "👍 Performance : Good"
+
+            : "📚 Performance : Needs Improvement"
+
+    }
+
+</p>
+
+
+
+
+
+
+
+                         <p className="mt-4 text-lg text-gray-700">
+
+    Thank you for completing the mock interview.
+    Keep practicing regularly to improve your interview performance.
+
+</p>
 
                             <button
                                 onClick={restartInterview}
