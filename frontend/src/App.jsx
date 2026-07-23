@@ -9,6 +9,7 @@ import SavedJobs from "./pages/SavedJobs";
 import Profile from "./pages/Profile";
 import InterviewQuestions from "./pages/InterviewQuestions";
 import MockInterview from "./pages/MockInterview";
+import InterviewFeedback from "./pages/InterviewFeedback";
 
 function App() {
 
@@ -58,6 +59,11 @@ function App() {
             <Route
                 path="/mock-interview"
                 element={<MockInterview />}
+            />
+
+            <Route
+                path="/interview-feedback"
+                element={<InterviewFeedback />}
             />
 
             

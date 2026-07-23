@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 function MockInterview() {
+
+    const navigate = useNavigate();
 
     const questions = [
 
@@ -212,6 +215,23 @@ else {
     Keep practicing regularly to improve your interview performance.
 
 </p>
+
+<button
+    onClick={() => navigate("/interview-feedback")}
+    className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 mr-4"
+>
+    View AI Feedback
+</button>
+
+
+
+
+
+
+
+
+
+
 
                             <button
                                 onClick={restartInterview}

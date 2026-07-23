@@ -106,6 +106,32 @@ function Dashboard() {
                     Welcome 👋
                 </h2>
 
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+
+    <div className="bg-white shadow-lg rounded-xl p-6 text-center">
+
+        <h3 className="text-xl font-bold text-purple-700">
+
+            🎤 Mock Interviews
+
+        </h3>
+
+        <p className="text-gray-600 mt-2">
+
+            Completed
+
+        </p>
+
+        <p className="text-4xl font-bold text-green-600 mt-3">
+
+            1
+
+        </p>
+
+    </div>
+
+</div>
+
                 <button
                     onClick={() => navigate("/resume-upload")}
                     className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 mb-4 mr-4"
