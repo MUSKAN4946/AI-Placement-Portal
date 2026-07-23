@@ -71,11 +71,33 @@ function ResumeUpload() {
                     Resume Upload
                 </h1>
 
+
+                <p className="text-center text-gray-600 mb-6">
+
+                    Upload your latest resume to receive an AI-based analysis.
+
+                </p>
+
                 <input
                     type="file"
                     className="mb-5"
                     onChange={(e) => setFile(e.target.files[0])}
                 />
+
+                {
+                    file && (
+
+                        <p className="text-green-700 font-semibold mb-4">
+
+                            📄 Selected File : {file.name}
+
+                        </p>
+
+                    )
+                }
+
+
+
 
                 <button
                     onClick={uploadResume}
@@ -94,35 +116,87 @@ function ResumeUpload() {
                 {
                     analysis && (
 
-                        <div className="mt-8">
+                        <div className="mt-8 bg-gray-50 p-6 rounded-xl shadow-md border">
 
                             <h2 className="text-2xl font-bold text-center mb-4">
                                 Resume Analysis
                             </h2>
 
-                            <h3 className="text-green-700 font-bold">
-                                Score : {analysis.score}/100
+
+
+                            <p className="text-center text-green-600 font-semibold mb-6">
+
+                                ✅ Resume analyzed successfully by AI
+
+                            </p>
+
+
+
+
+
+
+
+
+                           <h3 className="text-3xl font-bold text-center text-green-600 mb-6">
+
+                                ⭐ ATS Score : {analysis.score}/100
+
                             </h3>
 
+
+                            <div className="w-full bg-gray-300 rounded-full h-4 mb-6">
+
+    <div
+        className="bg-green-500 h-4 rounded-full"
+        style={{ width: `${analysis.score}%` }}
+    ></div>
+
+</div>
+
                             <br />
+
+                            <p className="text-center text-xl font-semibold mb-6">
+
+                                {
+
+                                    analysis.score >= 80
+
+                                        ? "🟢 Resume Status : Excellent"
+
+                                        : analysis.score >= 60
+
+                                        ? "🟡 Resume Status : Good"
+
+                                        : "🔴 Resume Status : Needs Improvement"
+
+                                }
+
+                            </p>
 
                             <h3 className="font-bold">
                                 Skills
                             </h3>
 
-                            <ul className="list-disc ml-6">
+                           <div className="flex flex-wrap gap-3">
 
-                                {
-                                    analysis.skills.map((skill, index) => (
+                            {
 
-                                        <li key={index}>
-                                            {skill}
-                                        </li>
+                                analysis.skills.map((skill, index) => (
 
-                                    ))
-                                }
+                                    <span
+                                        key={index}
+                                        className="bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold"
+                                    >
 
-                            </ul>
+                                        {skill}
+
+                                    </span>
+
+                                ))
+
+                            }
+
+                        </div>
 
                             <br />
 
@@ -130,19 +204,51 @@ function ResumeUpload() {
                                 Missing Skills
                             </h3>
 
-                            <ul className="list-disc ml-6">
+                           <div className="flex flex-wrap gap-3">
 
-                                {
-                                    analysis.missing_skills.map((skill, index) => (
+    {
 
-                                        <li key={index}>
-                                            {skill}
-                                        </li>
+        analysis.missing_skills.map((skill, index) => (
 
-                                    ))
-                                }
+            <span
+                key={index}
+                className="bg-red-100 text-red-700 px-4 py-2 rounded-full font-semibold"
+            >
 
-                            </ul>
+                {skill}
+
+            </span>
+
+        ))
+
+    }
+
+</div>
+
+
+
+
+<div className="mt-8 bg-yellow-50 border border-yellow-300 rounded-lg p-5">
+
+    <h3 className="text-xl font-bold text-yellow-700 mb-3">
+
+        💡 AI Suggestions
+
+    </h3>
+
+    <ul className="list-disc ml-6 space-y-2">
+
+        <li>Add the missing skills to your resume.</li>
+
+        <li>Include 2–3 real-world projects.</li>
+
+        <li>Mention certifications if available.</li>
+
+        <li>Keep your resume to one page.</li>
+
+    </ul>
+
+</div>
 
                         </div>
 
