@@ -8,6 +8,9 @@ function JobRecommendation() {
     const [jobs, setJobs] = useState([]);
     const [search, setSearch] = useState("");
     const [jobType, setJobType] = useState("All");
+    const [location, setLocation] = useState("All");
+    const [salaryFilter, setSalaryFilter] = useState("All");
+    const [sortBy, setSortBy] = useState("Highest Match");
     const [savedJobs, setSavedJobs] = useState(() => {
 
         const saved = localStorage.getItem("savedJobs");
@@ -93,33 +96,109 @@ function JobRecommendation() {
                 Recommended Jobs
             </h1>
 
-            <div className="mb-8">
 
-                <input
-                    type="text"
-                    placeholder="Search Job, Company..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full p-3 border rounded-lg"
-                />
+            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
 
-            </div>
+    <div>
+        <input
+            type="text"
+            placeholder="Search Job, Company..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+        />
+    </div>
 
-            <div className="mb-8">
+    <div>
+        <label className="block mb-2 font-semibold text-gray-700">
+            💼 Job Type
+        </label>
 
-                <select
-                    value={jobType}
-                    onChange={(e) => setJobType(e.target.value)}
-                    className="w-full p-3 border rounded-lg"
-                >
+        <select
+            value={jobType}
+            onChange={(e) => setJobType(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+        >
+            <option>All</option>
+            <option>Full Time</option>
+            <option>Internship</option>
+        </select>
+    </div>
 
-                    <option>All</option>
-                    <option>Full Time</option>
-                    <option>Internship</option>
+    <div>
+        <label className="block mb-2 font-semibold text-gray-700">
+            📍 Location
+        </label>
 
-                </select>
+        <select
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+        >
+            <option>All</option>
+            <option>Bangalore</option>
+            <option>Hyderabad</option>
+            <option>Pune</option>
+            <option>Remote</option>
+        </select>
+    </div>
 
-            </div>
+    <div>
+        <label className="block mb-2 font-semibold text-gray-700">
+            💰 Salary Range
+        </label>
+
+        <select
+            value={salaryFilter}
+            onChange={(e) => setSalaryFilter(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+        >
+            <option>All</option>
+            <option>Below 6 LPA</option>
+            <option>6-10 LPA</option>
+            <option>Above 10 LPA</option>
+        </select>
+    </div>
+
+    <div>
+        <label className="block mb-2 font-semibold text-gray-700">
+            ⭐ Sort By
+        </label>
+
+        <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="w-full p-3 border rounded-lg"
+        >
+            <option>Highest Match</option>
+            <option>Lowest Match</option>
+        </select>
+    </div>
+
+</div>
+
+<div className="flex justify-end mb-8">
+
+    <button
+        onClick={() => {
+
+            setSearch("");
+            setJobType("All");
+            setLocation("All");
+            setSalaryFilter("All");
+            setSortBy("Highest Match");
+
+        }}
+        className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700"
+    >
+
+        🔄 Clear Filters
+
+    </button>
+
+</div>
+
+
 
             <div className="grid md:grid-cols-2 gap-6">
 
@@ -137,15 +216,61 @@ function JobRecommendation() {
 
                             const matchesType =
 
-                                jobType === "All" ||
+    jobType === "All" ||
 
-                                job.job_type === jobType;
+    job.job_type === jobType;
 
-                            return matchesSearch && matchesType;
+const matchesLocation =
+
+    location === "All" ||
+
+    job.location === location;
+
+let matchesSalary = true;
+
+if (salaryFilter === "Below 6 LPA") {
+
+    matchesSalary = parseFloat(job.salary.replace(" LPA", "").replace("₹", "")) < 6;
+
+}
+
+else if (salaryFilter === "6-10 LPA") {
+
+    const salary = parseFloat(job.salary.replace(" LPA", "").replace("₹", ""));
+
+    matchesSalary = salary >= 6 && salary <= 10;
+
+}
+
+else if (salaryFilter === "Above 10 LPA") {
+
+    matchesSalary = parseFloat(job.salary.replace(" LPA", "").replace("₹", "")) > 10;
+
+}
+
+return (
+    matchesSearch &&
+    matchesType &&
+    matchesLocation &&
+    matchesSalary
+);
 
                         })
 
+                        .sort((a, b) => {
+
+    if (sortBy === "Highest Match") {
+
+        return b.match_percentage - a.match_percentage;
+
+    }
+
+    return a.match_percentage - b.match_percentage;
+
+})
+
                         .map((job, index) => (
+                            
 
                             <div
                                 key={index}
