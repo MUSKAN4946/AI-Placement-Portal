@@ -15,6 +15,7 @@ function JobRecommendation() {
         return saved ? JSON.parse(saved) : [];
 
     });
+    const [selectedJob, setSelectedJob] = useState(null);
 
     useEffect(() => {
 
@@ -266,6 +267,17 @@ function JobRecommendation() {
         
     </button>
 
+
+
+    <button
+    onClick={() =>
+        setSelectedJob(selectedJob === index ? null : index)
+    }
+    className="mt-4 mr-3 bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700"
+>
+    🔍 View Details
+</button>
+
     <button
         onClick={() => applyJob(job.apply_link)}
         className="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700"
@@ -273,23 +285,102 @@ function JobRecommendation() {
         Apply
     </button>
 
+
+    {
+    selectedJob === index && (
+
+        <div className="mt-6 bg-gray-100 border rounded-xl p-5">
+
+            <h3 className="text-xl font-bold text-indigo-700 mb-4">
+                🏢 Job Details
+            </h3>
+
+            <button
+    onClick={() => setSelectedJob(null)}
+    className="mb-5 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+>
+    ❌ Close Details
+</button>
+
+            <p className="mb-2">
+                <strong>Company:</strong> {job.company}
+            </p>
+
+            <p className="mb-2">
+                <strong>Job Role:</strong> {job.title}
+            </p>
+
+            <p className="mb-2">
+                <strong>Location:</strong> {job.location}
+            </p>
+
+            <p className="mb-2">
+                <strong>Experience:</strong> {job.experience}
+            </p>
+
+            <p className="mb-2">
+                <strong>Salary:</strong> {job.salary}
+            </p>
+
+
+
+
+            <h4 className="font-bold text-green-700 mt-4 mb-2">
+
+    🛠 Required Skills
+
+</h4>
+
+<div className="flex flex-wrap gap-2 mb-4">
+
+    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+        Python
+    </span>
+
+    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+        FastAPI
+    </span>
+
+    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+        SQL
+    </span>
+
+    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+        Git
+    </span>
+
 </div>
-                                
 
-                               
+            <p className="mt-4">
+                <strong>Job Description:</strong>
+            </p>
+
+            <p className="text-gray-700 mt-2">
+                We are looking for a passionate developer with good programming knowledge,
+                problem-solving skills, and the ability to work in a team environment.
+            </p>
+
+            <button
+    onClick={() => window.open(job.apply_link, "_blank")}
+    className="mt-5 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
+>
+    🌐 Visit Company Website
+</button>
+
+
+   
+
+        </div>
+
+    )
+}
 
 
 
 
 
 
-
-
-
-
-
-
-
+</div>
 
 
 
